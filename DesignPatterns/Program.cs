@@ -1,5 +1,6 @@
 ﻿using DesignPatterns.Builder;
 using DesignPatterns.Factory;
+using DesignPatterns.Prototype;
 using DesignPatterns.Singleton;
 
 namespace DesignPatterns
@@ -33,7 +34,32 @@ namespace DesignPatterns
             var config2 = Configuration.GetInstance();
             if (ReferenceEquals(config1, config2))
             {
-                Console.WriteLine("It is Singleton");
+                Console.WriteLine("It is Singleton\n");
+            }
+            #endregion
+
+            #region Prototype
+            var pentagon = new Pentagon()
+            {
+                X = 1,
+                Y = 2,
+                Border = new Border()
+                {
+                    Color = "Red",
+                    Size = "2px"
+                }
+            };
+            var pentagonShallowClone = (Pentagon)pentagon.ShallowClone();
+            if (!ReferenceEquals(pentagon, pentagonShallowClone)
+                && ReferenceEquals(pentagon.Border, pentagonShallowClone.Border))
+            {
+                Console.WriteLine("It is Pentagon class shallow copy");
+            }
+            var pentagonDeepClone = (Pentagon)pentagon.DeepClone();
+            if (!ReferenceEquals(pentagon, pentagonDeepClone)
+                && !ReferenceEquals(pentagon.Border, pentagonDeepClone.Border))
+            {
+                Console.WriteLine("It is Pentagon class deep copy");
             }
             #endregion
         }
